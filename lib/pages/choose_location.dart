@@ -10,35 +10,31 @@ class ChooseLocation extends StatefulWidget {
 }
 
 class _ChooseLocationState extends State<ChooseLocation> {
+  List<WorldTime> locations = [
+    WorldTime(url: 'Europe/london', location: 'London', flag: 'uk.png'),
+    WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
+    WorldTime(url: 'Africa/cairo', location: 'Cairo', flag: 'egypt.png'),
+    WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
+    WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
+    WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
+    WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
+    WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
+    WorldTime(url: 'Asia/Dhaka', location: 'Bangladesh', flag: 'BD.png'),
+    WorldTime(url: 'Asia/Dubai', location: 'Dubai', flag: 'Dubai.png'),
+    //  WorldTime(url: 'Asia/Karachi', location: 'Pakistan', flag: 'PK.jpg'),
+  ];
 
-   List<WorldTime> locations = [
-     WorldTime(url: 'Europe/london', location: 'London', flag: 'uk.png'),
-     WorldTime(url: 'Europe/Berlin', location: 'Berlin', flag: 'germany.png'),
-     WorldTime(url: 'Africa/cairo', location: 'Cairo', flag: 'egypt.png'),
-     WorldTime(url: 'Africa/Nairobi', location: 'Nairobi', flag: 'kenya.png'),
-     WorldTime(url: 'America/Chicago', location: 'Chicago', flag: 'usa.png'),
-     WorldTime(url: 'America/New_York', location: 'New York', flag: 'usa.png'),
-     WorldTime(url: 'Asia/Seoul', location: 'Seoul', flag: 'south_korea.png'),
-     WorldTime(url: 'Asia/Jakarta', location: 'Jakarta', flag: 'indonesia.png'),
-     WorldTime(url: 'Asia/Dhaka', location: 'Bangladesh', flag: 'BD.png'),
-     WorldTime(url: 'Asia/Dubai', location: 'Dubai', flag: 'Dubai.png'),
-     WorldTime(url: 'Asia/Karachi', location: 'Pakistan', flag: 'PK.jpg'),
-
-   ];
-
-
-   void updateTime(index) async{
-     WorldTime instance = locations[index];
-     await instance.getTime();
-     //navigate to home screen
-     Navigator.pop(context,{
-       'location': instance.location,
-       'flag': instance.flag,
-       'time': instance.time,
-       'isDaytime': instance.isDaytime,
-     });
-   }
-
+  void updateTime(index) async {
+    WorldTime instance = locations[index];
+    await instance.getTime();
+    //navigate to home screen
+    Navigator.pop(context, {
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
+      'isDaytime': instance.isDaytime,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +45,6 @@ class _ChooseLocationState extends State<ChooseLocation> {
         title: Text('Choose Your Location'),
         centerTitle: true,
         elevation: 0,
-
         actions: [
           IconButton(
             icon: Icon(
@@ -62,28 +57,27 @@ class _ChooseLocationState extends State<ChooseLocation> {
             },
           ),
         ],
-
       ),
       body: ListView.builder(
-        itemCount: locations.length,
-        itemBuilder: (context, index){
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0 ),
-            child: Card(
-              child: ListTile(
-                onTap: (){
-                  updateTime(index);
-                },
-                title: Text(locations[index].location),
-                leading: CircleAvatar(
-                  backgroundImage: AssetImage('assets/${locations[index].flag}'),
+          itemCount: locations.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 1.0, horizontal: 4.0),
+              child: Card(
+                child: ListTile(
+                  onTap: () {
+                    updateTime(index);
+                  },
+                  title: Text(locations[index].location),
+                  leading: CircleAvatar(
+                    backgroundImage:
+                        AssetImage('assets/${locations[index].flag}'),
+                  ),
                 ),
               ),
-            ),
-          );
-        }
-      ),
-      );
-
+            );
+          }),
+    );
   }
 }
